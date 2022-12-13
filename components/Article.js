@@ -9,8 +9,8 @@ import { BiBookBookmark } from 'react-icons/bi'
 import { BsGlobe } from 'react-icons/bs'
 function Article(props) {
     return (
-        <div className='border-r-2 border-l-2'>
-            <div className='p-2 h-screen'>
+        <div className='border-x-2 '>
+            <div className='p-2'>
                 {/* Post Header */}
                 <div className='flex justify-between mb-2 p-1 items-center border-b-2'>
                     {/* author profile */}
@@ -38,7 +38,7 @@ function Article(props) {
                 </div>
                 {/* Content */}
                 <div>
-                    <div className='relative h-[50vh] w-[100%] rounded-full overflow-hidden'>
+                    <div className='relative h-[50vh] :w-[100%] rounded-full overflow-hidden'>
                         <Image
                             src={logo}
                             fill

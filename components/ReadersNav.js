@@ -9,21 +9,21 @@ import Link from 'next/link';
 
 function ReadersNav(props) {
     return (
-        <div className=' flex flex-col  h-screen  justify-between items-center p-2 fixed top-0'>
+        <div className=' flex md:flex-col  md:h-screen  justify-center items-center p-2'>
             <Link href='/'>
                 <div>
-                    <p className='text-2xl md:text-4xl'>~IS~</p>
+                    <p className='text-xl md:text-2xl lg:text-4xl'>~IS~</p>
                 </div>
             </Link>
 
-            <div className='flex flex-1 flex-col justify-center gap-3 text-2xl text-gray-500'>
+            <div className='flex flex-1 md:flex-col justify-center gap-3 text-2xl text-gray-500'>
                 <HiOutlineHome className='cursor-pointer'/>
                 <FiBell className='cursor-pointer'/>
                 <BiBookmarks className='cursor-pointer'/>
                 <RiArticleLine className='cursor-pointer'/>
                 <BsPencilSquare className='cursor-pointer'/>
             </div>
-            <div className='cursor-pointer relative h-10 w-10 overflow-hidden rounded-full'>
+            <div className='cursor-pointer relative w-8 h-8 md:h-10 md:w-10 overflow-hidden rounded-full'>
                 <Image
                     src='/images/18233896_v1032-v286-aew-071-health-logo.jpg'
                     fill
