@@ -7,3 +7,12 @@
     @apply py-2 px-5 text-sm md:text-lg bg-violet-500 border-black shadow-md rounded-2xl font-semibold cursor-pointer hover:bg-purple-300 active:scale-95 transition transform duration-100 ease-out
   }
 }
+
+html,
+body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
