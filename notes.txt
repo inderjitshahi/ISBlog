@@ -1,0 +1,13 @@
+// Permission Error for firebase:
+
+Go in Database -> Rules ->
+
+For development:
+
+Change allow read, write: if false; to true;
+
+Note: It's quick solution for development purpose only because it will turns off all the security. So, it's not recommended for production.
+
+For production:
+
+If authenticated from firebase: Change allow read, write: if false; to request.auth != null;
