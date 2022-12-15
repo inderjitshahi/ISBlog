@@ -25,17 +25,17 @@ export const IsblogProvider = (props) => {
         const getArticles = async () => {
             const querySnapshot = await getDocs(collection(db, "Articles"));
             // querySnapshot.docs.map(doc=>console.log(doc.data()))
-            setArticles(querySnapshot.docs.map(doc => {
+            setArticles([...Articles,...querySnapshot.docs.map(doc => {
                 return {
                     id: doc.id,
                     data: {
                         ...doc.data()
                     }
                 }
-            }));
+            })]);
         }
         getArticles();
-    }, []);
+    },[]);
     return (
         <IsblogContext.Provider
             value={{
