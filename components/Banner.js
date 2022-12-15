@@ -14,7 +14,7 @@ function Banner(props) {
                     <h3 className='text-md lg:text-lg font-semibold'>
                         Discover, Teach and explore expertise
                     </h3>
-                    <button className='button'>Start Reading</button>
+                    {/* <button className='button'>Start Reading</button> */}
                 </div>
 
             </div>
