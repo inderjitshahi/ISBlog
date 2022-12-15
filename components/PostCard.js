@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import { FiBookmark } from 'react-icons/fi';
 import Link from 'next/link';
-function PostCard({ img, authImg }) {
+function PostCard({ post }) {
     return (
-        <Link href='/post/123'>
+        <Link href={`/post/${post.id}`}>
             <div className='flex rounded-md cursor-pointer gap-5 my-3 mx-3 border p-2  shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out'>
                 <div className='space-y-2 flex-grow'>
                     <div className='flex gap-2'>
@@ -15,7 +15,7 @@ function PostCard({ img, authImg }) {
                                 fill
                             />
                         </div>
-                        <p className='font-semibold'>Inderjit</p>
+                        <p className='font-semibold'>{author}</p>
                     </div>
                     <div className=''>
                         <h2 className='text-xl  font-bold'>Learn Js</h2>

@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { IsblogProvider } from '../context/IsblogContext'
+import { IsblogProvider } from '../context/isblogContext';
 function MyApp({ Component, pageProps }) {
   return(
   <IsblogProvider>

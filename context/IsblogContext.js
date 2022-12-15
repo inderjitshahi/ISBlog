@@ -1,25 +1,51 @@
-import { async } from "@firebase/util";
 import { createContext, useEffect, useState } from "react";
-import { collection, getDoc, setDocs, docs } from "firebase/firestore";
-const IsblogContext = createContext();
+import { collection, getDocs, doc } from "firebase/firestore";
 import { db } from "../firebase";
-const IsblogProvider = ({ children }) => {
-    const [users, setUsers] = useState([]);
-    const [posts, setPosts] = useState([]);
+
+const IsblogContext = createContext();
+export const IsblogProvider = (props) => {
+    const [Users, setUsers] = useState([]);
+    const [Articles, setArticles] = useState([]);
+    //Running UseEffect Only Once
     useEffect(() => {
         const getUsers = async () => {
-            const querySnapshot = await getDoc(collection(db, "users"));
-            querySnapshot.docs.map(doc => console.log(doc))
+            const querySnapshot = await getDocs(collection(db, "Users"));
+            setUsers(querySnapshot.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    data: {
+                        ...doc.data()
+                    }
+                }
+            }));
         }
         getUsers();
     }, []);
+    useEffect(() => {
+        const getArticles = async () => {
+            const querySnapshot = await getDocs(collection(db, "Articles"));
+            // querySnapshot.docs.map(doc=>console.log(doc.data()))
+            setArticles(querySnapshot.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    data: {
+                        ...doc.data()
+                    }
+                }
+            }));
+        }
+        getArticles();
+    }, []);
     return (
         <IsblogContext.Provider
-            value={{ posts, users }}>
-            {children}
+            value={{
+                Users,
+                Articles
+            }}>
+            {props.children}
         </IsblogContext.Provider>
-    )
+    );
 }
 
 
-export { IsblogContext, IsblogProvider };
+export default IsblogContext;
