@@ -47,5 +47,4 @@ export const IsblogProvider = (props) => {
     );
 }
 
-
 export default IsblogContext;

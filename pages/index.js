@@ -4,7 +4,7 @@ import Banner from '../components/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import PostCard from '../components/PostCard'
-import IsblogContext from '../context/isblogContext';
+import IsblogContext from '../context/IsblogContext';
 export default function Home() {
   const {Articles}=useContext(IsblogContext);
   console.log(Articles);
