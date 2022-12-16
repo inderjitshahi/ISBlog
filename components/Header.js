@@ -38,9 +38,7 @@ function Header(props) {
                 </div>
                 {currentUser ?
                     <div className='flex space-x-5  cursor-pointer text-white text-sm sm:text-md items-center'>
-                        <Link href='https://port-folio-vxwv.vercel.app/' target="_blank">
-                            <div className='inline'>Contact</div>
-                        </Link>
+                        <Link href="https://port-folio-vxwv.vercel.app/" target="_blank">Contact</Link>
                         <Link href='/?addNew=1'>
                             <button className='button'>Write</button>
                         </Link>
@@ -53,7 +51,7 @@ function Header(props) {
                         </div>
                     </div> :
                     <div className='flex space-x-5 cursor-pointer text-white text-sm sm:text-md items-center top-1/2 '>
-                        <Link href='https://port-folio-jydi.vercel.app/' target="_blank">
+                        <Link href='https://port-folio-vxwv.vercel.app/' target="_blank">
                             <div className='inline'>Contact</div>
                         </Link>
                         <button className='button' onClick={handleUserAuth}>Sign in</button>
