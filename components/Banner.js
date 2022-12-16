@@ -9,8 +9,8 @@ function Banner(props) {
                         <source src='/IS.mp4' type="video/mp4" />
                     </video>
                 </div>
-                <div className='space-y-5 flex flex-col justify-center items-start md:w-[50%]'>
-                    <h1 className='text-2xl md:text-4xl lg:text-6xl'>Read Write and Grow</h1>
+                <div className='space-y-5 flex flex-col items-center justify-center md:items-start md:w-[50%]'>
+                    <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-6xl'>Read Write and Grow</h1>
                     <h3 className='text-md text-start lg:text-lg  font-semibold'>
                         Discover, Teach and explore expertise
                     </h3>
