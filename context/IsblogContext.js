@@ -5,7 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import { async } from "@firebase/util";
 const IsblogContext = createContext();
 export const IsblogProvider = (props) => {
-    const [currentUser, setCurrentUser] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
     const [Articles, setArticles] = useState([]);
     const [Users, setUsers] = useState([]);
     //Running UseEffect Only Once
@@ -71,7 +71,7 @@ export const IsblogProvider = (props) => {
     //         insertUser();
     //     }
     // }, [currentUser]);
-
+    // console.log(currentUser);
     return (
         <IsblogContext.Provider
             value={{

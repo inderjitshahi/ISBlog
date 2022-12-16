@@ -11,7 +11,7 @@ function PostCard({ Article }) {
     });
     useEffect(()=>{
         const getAuthorData=async ()=>{
-            setAuthorData((await getDoc(doc(db,'Users',Article.data.author))).data())
+            setAuthorData((await getDoc(doc(db,'Users',Article?.data?.author))).data())
         }
         getAuthorData();
     },[Article])
@@ -32,7 +32,7 @@ function PostCard({ Article }) {
                     <div className=''>
                         <h2 className='text-xl  font-bold'>{Article.data.title}</h2>
                         <h3 className='text-gray-500'>{Article.data.brief}</h3>
-                        <span className="text-sm text-gray-500">{new Date(Article.data.postedOn.toDate()).toLocaleString('en-US',{
+                        <span className="text-sm text-gray-500">{new Date(Article?.data?.postedOn?.toDate()).toLocaleString('en-US',{
                             day:'numeric',
                             month:'short',
                             year:'numeric'
