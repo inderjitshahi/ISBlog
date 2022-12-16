@@ -38,7 +38,7 @@ function Header(props) {
                 </div>
                 {currentUser ?
                     <div className='flex space-x-5  cursor-pointer text-white text-sm sm:text-md items-center'>
-                        <Link href='https://port-folio-jydi.vercel.app/' target="_blank">
+                        <Link href='https://port-folio-vxwv.vercel.app/' target="_blank">
                             <div className='inline'>Contact</div>
                         </Link>
                         <Link href='/?addNew=1'>
