@@ -9,13 +9,15 @@ Modal.setAppElement('#__next')
 
 const modalStyle = {
     content: {
+        width:"90%",
+        maxHeight: "90vh",
         top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
         transform: 'translate(-50%,-50%)',
         backgroundColor: '#fff',
-        padding: "1rem",
+        padding: ".25rem",
         border: 'none',
     },
     overlay: {
