@@ -19,11 +19,11 @@ function PostModal(props) {
             await addDoc(collection(db, 'Articles'), {
                 bannerImage:BannerImage,
                 title:title,
-                brief:"jdbfjde",
+                brief:brief,
                 author: currentUser.email,
-                body:"mdbcjdbc",
-                postLength: "dmbcmd",
-                category:"mbcmednc",
+                body:body,
+                postLength: readLength,
+                category:category,
                 postedOn: new Date(),
     
             }).then(res=>router.push('/'))
