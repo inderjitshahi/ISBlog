@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import Article from '../../components/Article';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 import ReadersNav from '../../components/ReadersNav'
 import Recommendations from '../../components/Recommendations';
 import IsblogContext from '../../context/IsblogContext';
@@ -15,22 +17,22 @@ function Post(props) {
             return;
         }
         setArticle(Articles.find(Article => Article.id === router.query.slug));
-        setAuthor(Users.find(user=>user.id===article.data?.author));
-    }, [article])
+        setAuthor(Users.find(user => user.id === article.data?.author));
+    }, [article]);
     return (
         <>
+            <Header />
             < div className="flex flex-col md:grid md:grid-cols-12">
-                <div className='md:col-span-1'>
-                    <ReadersNav className="" />
-                </div>
                 <div className='md:col-span-8'>
                     <Article
-                        Article={article}
-                        Author={author}
+                        slug={router.query.slug}
                         className="" />
                 </div>
-                <div className='md:col-span-3'>
-                    <Recommendations className="" />
+                <div className='md:col-span-4'>
+                    <Recommendations
+                        Author={author}
+                        Articles={Articles}
+                        className="" />
                 </div>
             </div>
             <Footer />

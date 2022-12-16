@@ -4,7 +4,7 @@
 
 @layer components{
   .button{
-    @apply py-2 px-5 text-sm md:text-lg bg-violet-500 border-black shadow-md rounded-2xl font-semibold cursor-pointer hover:bg-purple-300 active:scale-95 transition transform duration-100 ease-out
+    @apply py-2 px-5  bg-violet-500 border-black shadow-md rounded-2xl font-semibold cursor-pointer hover:bg-purple-300 active:scale-95 transition transform duration-100 ease-out
   }
 }
 

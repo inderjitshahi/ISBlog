@@ -5,7 +5,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useRouter } from 'next/router';
 function PostModal(props) {
-    const router=useRouter();
+    const router = useRouter();
     const { currentUser } = useContext(IsblogContext);
     const [title, setTitle] = useState("");
     const [brief, setBrief] = useState("");
@@ -15,19 +15,22 @@ function PostModal(props) {
     const [body, setBody] = useState("");
     const addPostToFireBase = async (e) => {
         e.preventDefault();
-        if(currentUser){
+        if (currentUser) {
             await addDoc(collection(db, 'Articles'), {
-                bannerImage:BannerImage,
-                title:title,
-                brief:brief,
+                bannerImage: BannerImage,
+                title: title,
+                brief: brief,
                 author: currentUser.email,
-                body:body,
+                body: body,
                 postLength: readLength,
-                category:category,
+                category: category,
                 postedOn: new Date(),
-    
-            }).then(res=>router.push('/'))
-            .catch(err=>console.log(err));
+
+            }).then(res => {
+                window.location.reload();
+                router.push('/')
+            })
+                .catch(err => console.log(err));
         }
     }
     return (
@@ -54,8 +57,8 @@ function PostModal(props) {
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Image Url</span>
                 <input
-                value={BannerImage}
-                onChange={(e)=>setBannerImage(e.target.value)}
+                    value={BannerImage}
+                    onChange={(e) => setBannerImage(e.target.value)}
                     type="text"
                     className="p-2 bg-transparent outline-none  h-min border-2 border-gray-400 rounded-lg col-span-3 "
                 />
@@ -63,8 +66,8 @@ function PostModal(props) {
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Category</span>
                 <input
-                value={category}
-                onChange={(e)=>setCategory(e.target.value)}
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
                     type="text"
                     className="p-2 bg-transparent outline-none  h-min border-2 border-gray-400 rounded-lg col-span-3 "
                 />
@@ -72,8 +75,8 @@ function PostModal(props) {
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Reading Time(in Minutes)</span>
                 <input
-                value={readLength}
-                onChange={(e)=>setReadLength(e.target.value)}
+                    value={readLength}
+                    onChange={(e) => setReadLength(e.target.value)}
                     type="text"
                     className="p-2 bg-transparent outline-none h-min border-2 border-gray-400 rounded-lg col-span-3"
                 />
@@ -81,13 +84,13 @@ function PostModal(props) {
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Main Content</span>
                 <textarea
-                value={body}
-                onChange={(e)=>setBody(e.target.value)}
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
                     rows={5}
                     className="p-2 bg-transparent outline-none  h-min border-2 border-gray-400 rounded-lg col-span-3 "
                 />
             </div>
-            <button className='button'  onClick={addPostToFireBase}>Submit</button>
+            <button className='button' onClick={addPostToFireBase}>Submit</button>
         </div>
     );
 }

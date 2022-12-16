@@ -17,8 +17,8 @@ function PostCard({ Article }) {
     },[Article])
     return (
         <Link href={`/post/${Article.id}`}>
-            <div className='flex rounded-md cursor-pointer gap-5 my-3 mx-3 border p-2  shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out min-h-[13rem]'>
-                <div className='space-y-2 flex-grow'>
+            <div className='flex rounded-md cursor-pointer gap-5 my-3 mx-3 border p-2 max-h-[20rem] overflow-hidden shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out min-h-[13rem]'>
+                <div className='space-y-2 w-[70%]'>
                     <div className='flex gap-2 items-center'>
                         <div className='relative overflow-hidden w-10 h-10 items-center rounded-full'>
                             <Image
@@ -31,7 +31,7 @@ function PostCard({ Article }) {
                     </div>
                     <div className=''>
                         <h2 className='text-xl  font-bold'>{Article.data.title}</h2>
-                        <h3 className='text-gray-500'>{Article.data.brief}</h3>
+                        <h3 className='text-gray-500 h-[6rem] w-full overflow-hidden text-sm'>{Article.data.brief}</h3>
                         <span className="text-sm text-gray-500">{new Date(Article?.data?.postedOn?.toDate()).toLocaleString('en-US',{
                             day:'numeric',
                             month:'short',
@@ -43,7 +43,7 @@ function PostCard({ Article }) {
                         </span>
                     </div>
                 </div>
-                <div className='relative w-32 h-32 rounded-md overflow-hidden'>
+                <div className='relative w-full  rounded-md overflow-hidden'>
                     <Image
                         src={Article.data.bannerImage}
                         fill
