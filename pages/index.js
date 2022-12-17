@@ -13,6 +13,7 @@ export default function Home() {
     <div className='flex flex-col justify-center min-h-screen'>
       <Head>
         <title>ISBlog</title>
+        <link rel="shortcut icon" href="/images/Compressed_Logo.png" type="image/x-icon"></link>
         <meta name="description" content="Blogging Website to Spread Ideas using Tech" />
         <meta name="author" content="Inderjit Shahi"></meta>
       </Head>
