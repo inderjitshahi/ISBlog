@@ -5,21 +5,23 @@ import Link from 'next/link';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 function PostCard({ Article }) {
-    const [authorData,setAuthorData]=useState({
-        name:"anonymous",
-        imgUrl:"/images/not_found.jpg",
+    const [bookmarked, setBookmarked] = useState(false);
+    const [authorData, setAuthorData] = useState({
+        name: "anonymous",
+        imgUrl: "/images/not_found.jpg",
     });
-    useEffect(()=>{
-        const getAuthorData=async ()=>{
-            setAuthorData((await getDoc(doc(db,'Users',Article?.data?.author))).data())
+    useEffect(() => {
+        const getAuthorData = async () => {
+            setAuthorData((await getDoc(doc(db, 'Users', Article?.data?.author))).data())
         }
         getAuthorData();
-    },[Article])
+    }, [Article])
+    // console.log(Article,"PostCard");
     return (
         <Link href={`/post/${Article.id}`}>
-            <div className='flex rounded-md cursor-pointer gap-5 my-3 mx-3 border p-2 max-h-[20rem] overflow-hidden shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out min-h-[13rem]'>
-                <div className='space-y-2 w-[70%]'>
-                    <div className='flex gap-2 items-center'>
+            <div className='flex rounded-md cursor-pointer  my-2 mx-2 border p-2  overflow-hidden shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out h-[20rem]'>
+                <div className='flex flex-col space-y-2 w-[70%]'>
+                    <div className='flex   space-x-2 items-center overflow-hidden max-h-[3rem]'>
                         <div className='relative overflow-hidden w-10 h-10 items-center rounded-full'>
                             <Image
                                 src={authorData?.imgUrl}
@@ -29,17 +31,19 @@ function PostCard({ Article }) {
                         </div>
                         <p className='font-semibold'>{authorData?.name}</p>
                     </div>
-                    <div className=''>
-                        <h2 className='text-xl  font-bold'>{Article.data.title}</h2>
-                        <h3 className='text-gray-500 h-[6rem] w-full overflow-hidden text-sm'>{Article.data.brief}</h3>
-                        <span className="text-sm text-gray-500">{new Date(Article?.data?.postedOn?.toDate()).toLocaleString('en-US',{
-                            day:'numeric',
-                            month:'short',
-                            year:'numeric'
+                    <div className='flex flex-col space-y-3'>
+                        <h2 className='text-md  font-bold max-h-[3rem] overflow-hidden'>{Article.data.title}</h2>
+                        <h3 className='text-gray-500 max-h-[6rem] w-full overflow-hidden text-sm'>{Article.data.brief}</h3>
+                        <span className="text-sm text-gray-500">{new Date(Article?.data?.postedOn?.toDate()).toLocaleString('en-US', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric'
                         })} . {Article.data.postLength}min Read .  </span>
-                        <span className='text-sm bg-purple-200 px-2 py-1 rounded-xl '>{Article.data.category}</span>
-                        <span className='cursor-pointer'>
-                            <FiBookmark className='h-6 w-6 ml-auto' />
+                        <div>
+                            <span className='bg-purple-300 px-2 py-1 rounded-full'>{Article.data.category}</span>
+                        </div>
+                        <span className=''>
+                            <FiBookmark className={`cursor-pointer w-6 h-6 ${bookmarked ? 'bg-yellow-500' : ''}`} onClick={e => setBookmarked(!bookmarked)} />
                         </span>
                     </div>
                 </div>

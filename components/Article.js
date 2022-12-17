@@ -1,40 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
-import logo from '../public/images/10782951_19199360.jpg';
-import { AiFillPlayCircle } from 'react-icons/ai'
+
 import { GrLinkedin } from 'react-icons/gr'
 import { FaFacebook } from 'react-icons/fa'
-import { HiOutlineLink } from 'react-icons/hi'
-import { BiBookBookmark } from 'react-icons/bi'
 import { BsGlobe } from 'react-icons/bs'
 import IsblogContext from '../context/IsblogContext';
 import { useRouter } from 'next/router';
-function Article() {
+function Article({author,article}) {
     const router = useRouter();
-    console.log(router.query);
-    const [article, setArticle] = useState({
-        data: {
-            title: "anonymous",
-            bannerImage: "/images/not_found.jpg",
-            brief: "loading brief"
-        }
-    });
-    const [author, setAuthor] = useState({
-        data: {
-            name: "anonymous",
-            imgUrl: "/images/not_found.jpg",
-        }
-    });
-    const { Users, Articles } = useContext(IsblogContext);
-    console.log(article, author, "Article");
-    useEffect(() => {
-        if (Articles.length == 0) {
-            return;
-        }
-        setArticle(Articles.find(Article => Article.id === router.query.slug));
-        setAuthor(Users.find(user => user.id === article?.data?.author));
-    }, [Articles, article]);
-
+    // console.log(author,article);
     const DATE = new Date(article?.data?.postedOn?.toDate() || new Date()).toLocaleString('en-US', {
         day: 'numeric',
         month: 'short',
@@ -56,7 +30,7 @@ function Article() {
                         </div>
                         <div className='flex flex-col'>
                             <span className='font-semibold'>{author?.data?.name}</span>
-                            <span className='text-gray-500 text-sm flex items-center'>{DATE} . {article?.data?.postLength}min read. &nbsp;<span className='text-green-600' > <AiFillPlayCircle /></span><span className='text-green-600'>Listen</span></span>
+                            <span className='text-gray-500 text-sm flex items-center'>{DATE} . {article?.data?.postLength}min read.</span>
                         </div>
                     </div>
                     {/* social links of author*/}

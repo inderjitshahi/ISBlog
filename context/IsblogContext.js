@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, getDocs, doc, setDoc, limit } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { db, auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { async } from "@firebase/util";
@@ -23,7 +23,6 @@ export const IsblogProvider = (props) => {
         }
         getUsers();
     }, []);
-    
     useEffect(() => {
         const getArticles = async () => {
             const querySnapshot = await getDocs(collection(db, "Articles"));

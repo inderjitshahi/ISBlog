@@ -7,32 +7,81 @@ import Header from '../../components/Header';
 import ReadersNav from '../../components/ReadersNav'
 import Recommendations from '../../components/Recommendations';
 import IsblogContext from '../../context/IsblogContext';
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { db, auth, provider } from "../../firebase";
 function Post(props) {
-    const [article, setArticle] = useState([]);
-    const [author, setAuthor] = useState([]);
-    const { Users, Articles } = useContext(IsblogContext);
     const router = useRouter();
+    const [Articles, setArticles] = useState([]);
+    const [Users, setUsers] = useState([]);
+    const [article, setArticle] = useState({
+        data: {
+            title: "anonymous",
+            bannerImage: "/images/not_found.jpg",
+            brief: "loading brief",
+            body: "Cannot Load Main Content Now"
+        }
+    });
+    const [author, setAuthor] = useState({
+        data: {
+            name: "anonymous",
+            imgUrl: "/images/not_found.jpg",
+        }
+    });
     useEffect(() => {
-        if (Article.length == 0) {
+        if (Articles.length == 0) {
             return;
         }
-        setArticle(Articles.find(Article => Article.id === router.query.slug));
-        setAuthor(Users.find(user => user.id === article.data?.author));
-    }, [article]);
+        setArticle(prev => (Articles.find(Article => Article.id === router.query.slug) || prev));
+        setAuthor(prev => (Users.find(user => user.id === article?.data?.author) || prev));
+    }, [Articles, Users,article,author]);
+    useEffect(() => {
+        const getArticles = async () => {
+            const querySnapshot = await getDocs(collection(db, "Articles"));
+            setArticles([...Articles, ...querySnapshot.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    data: {
+                        ...doc.data()
+                    }
+                }
+            })]);
+        }
+        getArticles();
+    }, []);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const querySnapshot = await getDocs(collection(db, "Users"));
+            setUsers(querySnapshot.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    data: {
+                        ...doc.data()
+                    }
+                }
+            }));
+        }
+        getUsers();
+    }, []);
+
+    // console.log(author, "slug");
+
     return (
         <>
             <Header />
             < div className="flex flex-col md:grid md:grid-cols-12">
                 <div className='md:col-span-8'>
                     <Article
-                        slug={router.query.slug}
-                        className="" />
+                        author={author}
+                        article={article}
+                    />
                 </div>
                 <div className='md:col-span-4'>
                     <Recommendations
-                        Author={author}
-                        Articles={Articles}
-                        className="" />
+                        author={author}
+                        // Articles={Articles}
+                        // className="" 
+                        />
                 </div>
             </div>
             <Footer />

@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard'
 import IsblogContext from '../context/IsblogContext';
 export default function Home() {
   const {Articles}=useContext(IsblogContext);
+  // console.log(Articles, "pages");
   // console.log(Articles);
   // console.log("called  here");
   return (
@@ -20,7 +21,7 @@ export default function Home() {
       <Header />
       <Banner />
       <div className=' flex-1 justify-center'>
-        <div className='flex flex-col  p-1 sm:p-5 gap-3 md:grid md:grid-cols-2 lg:grid-cols-3'>
+        <div className='flex flex-col  p-1 sm:p-5 gap-3 md:grid  md:grid-cols-2'>
           {/* <PostCard/> */}
           {
           Articles.map(Article=>(

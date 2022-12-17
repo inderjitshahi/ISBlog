@@ -14,6 +14,7 @@ function PostModal(props) {
     const [BannerImage, setBannerImage] = useState("");
     const [readLength, setReadLength] = useState("");
     const [body, setBody] = useState("");
+    console.log(category);
     const addPostToFireBase = async (e) => {
         e.preventDefault();
         if (currentUser) {
@@ -69,23 +70,35 @@ function PostModal(props) {
             </div>
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Category</span>
-                <input
-                    placeholder='Coding, ML, Motivation, Web Development ...'
+                <select
                     value={category}
+                    placeholder="Select a Category"
                     onChange={(e) => setCategory(e.target.value)}
-                    type="text"
-                    className="p-1 md:p-2 bg-transparent outline-none  h-min border-2 border-gray-400 rounded-lg col-span-3 "
-                />
+                    className="p-1 md:p-2 bg-transparent outline-none  h-min border-2 border-gray-400 rounded-lg col-span-3 ">
+                    <option value="Tech">Tech</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Food">Food</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Health">Health</option>
+                    <option value="Movie">Movie</option>
+                    <option value="Political">Political</option>
+                    <option value="Business">Business</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Sports">Sports</option>
+                    <option value="News">News</option>
+                    <option value="Personal">Personal</option>
+                    <option value="General">General</option>
+                </select>
             </div>
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Reading Time(in Minutes)</span>
-                <input
+                <input type="number" id="hour" min="1" max="1000" step={1}
                     placeholder='eg: 5'
                     value={readLength}
                     onChange={(e) => setReadLength(e.target.value)}
-                    type="text"
                     className="p-1 md:p-2 bg-transparent outline-none h-min border-2 border-gray-400 rounded-lg col-span-3"
                 />
+
             </div>
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Main Content</span>

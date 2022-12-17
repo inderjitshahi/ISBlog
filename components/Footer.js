@@ -1,9 +1,14 @@
 import React from 'react';
-
+import Link from 'next/link';
 function Footer(props) {
     return (
-        <div className='bg-purple-300   bottom-0 p-5'>
-            <p className='text-center font-semibold'>All rights Reserved to Inderjit Shahi</p>
+        <div className='p-2 text-sm flex justify-center bg-purple-500 space-x-2'>
+            <p>All Rights Reserved To Inderjit Shahi</p>
+            <Link
+                href='/credits'
+            >
+                Credits
+            </Link>
         </div>
     );
 }

@@ -6,37 +6,8 @@ import logo from '../public/images/18233896_v1032-v286-aew-071-health-logo.jpg';
 import image from '../public/images/10782951_19199360.jpg';
 import { useRouter } from 'next/router';
 import IsblogContext from '../context/IsblogContext';
-function Recommendations() {
-    const router=useRouter();
-    console.log(router.query);
-    const [article, setArticle] = useState({
-        data:{
-            title:"anonymous",
-            bannerImage:"/images/not_found.jpg",
-            brief:"loading brief"
-        }
-    });
-    const [author, setAuthor] = useState({
-        data:{
-            name:"anonymous",
-            imgUrl:"/images/not_found.jpg",
-        }
-    });
-    const { Users, Articles } = useContext(IsblogContext);
-    console.log(article,author,"Article");
-    useEffect(() => {
-        if (Articles.length == 0) {
-            return;
-        }
-        setArticle(Articles.find(Article => Article.id === router.query.slug));
-        setAuthor(Users.find(user => user.id === article?.data?.author));
-    }, [Articles,article]);
-
-    const DATE = new Date( article?.data?.postedOn?.toDate() || new Date()).toLocaleString('en-US', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-    });
+function Recommendations({author}) {
+  
     return (
         <div className='flex justify-center items-center space-y-5 border-t-4 pt-2 px-2 flex-col'>
             <div className='flex items-center md:gap-5 border rounded-full px-2 py-1 w-full'>
@@ -58,7 +29,7 @@ function Recommendations() {
                     <button className='button bg-green-500 hover:bg-green-400 rounded-full'><MdMarkEmailUnread /></button>
                 </div>
             </div>
-            <div className='md:mt-10'>
+            {/* <div className='md:mt-10'>
                 <p className='mb-2 text-center'>More From ISBlog</p>
                 <div>
                     {
@@ -88,8 +59,7 @@ function Recommendations() {
                         ))
                     }
                 </div>
-
-            </div>
+            </div> */}
         </div>
     );
 }
