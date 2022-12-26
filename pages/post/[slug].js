@@ -10,9 +10,12 @@ import IsblogContext from '../../context/IsblogContext';
 import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { db, auth, provider } from "../../firebase";
 function Post(props) {
+
+    const { Articles,Users} = useContext(IsblogContext);
+    // console.log(Users,"slug");
     const router = useRouter();
-    const [Articles, setArticles] = useState([]);
-    const [Users, setUsers] = useState([]);
+    // const [Articles, setArticles] = useState([]);
+    // const [Users, setUsers] = useState([]);
     const [article, setArticle] = useState({
         data: {
             title: "anonymous",
@@ -33,36 +36,36 @@ function Post(props) {
         }
         setArticle(prev => (Articles.find(Article => Article.id === router.query.slug) || prev));
         setAuthor(prev => (Users.find(user => user.id === article?.data?.author) || prev));
-    }, [Articles, Users,article,author]);
-    useEffect(() => {
-        const getArticles = async () => {
-            const querySnapshot = await getDocs(collection(db, "Articles"));
-            setArticles([...Articles, ...querySnapshot.docs.map(doc => {
-                return {
-                    id: doc.id,
-                    data: {
-                        ...doc.data()
-                    }
-                }
-            })]);
-        }
-        getArticles();
-    }, []);
+    }, [Articles,Users,author,article]);
+    // useEffect(() => {
+    //     const getArticles = async () => {
+    //         const querySnapshot = await getDocs(collection(db, "Articles"));
+    //         setArticles([...Articles, ...querySnapshot.docs.map(doc => {
+    //             return {
+    //                 id: doc.id,
+    //                 data: {
+    //                     ...doc.data()
+    //                 }
+    //             }
+    //         })]);
+    //     }
+    //     getArticles();
+    // }, []);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const querySnapshot = await getDocs(collection(db, "Users"));
-            setUsers(querySnapshot.docs.map(doc => {
-                return {
-                    id: doc.id,
-                    data: {
-                        ...doc.data()
-                    }
-                }
-            }));
-        }
-        getUsers();
-    }, []);
+    // useEffect(() => {
+    //     const getUsers = async () => {
+    //         const querySnapshot = await getDocs(collection(db, "Users"));
+    //         setUsers(querySnapshot.docs.map(doc => {
+    //             return {
+    //                 id: doc.id,
+    //                 data: {
+    //                     ...doc.data()
+    //                 }
+    //             }
+    //         }));
+    //     }
+    //     getUsers();
+    // }, []);
 
     // console.log(author, "slug");
 
@@ -79,9 +82,8 @@ function Post(props) {
                 <div className='md:col-span-4'>
                     <Recommendations
                         author={author}
-                        // Articles={Articles}
-                        // className="" 
-                        />
+                        Articles={Articles}
+                    />
                 </div>
             </div>
             <Footer />

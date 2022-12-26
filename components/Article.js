@@ -6,7 +6,8 @@ import { FaFacebook } from 'react-icons/fa'
 import { BsGlobe } from 'react-icons/bs'
 import IsblogContext from '../context/IsblogContext';
 import { useRouter } from 'next/router';
-function Article({author,article}) {
+function Article({ author, article }) {
+    // console.log(author, "artcile");
     const router = useRouter();
     // console.log(author,article);
     const DATE = new Date(article?.data?.postedOn?.toDate() || new Date()).toLocaleString('en-US', {

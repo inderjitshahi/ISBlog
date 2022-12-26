@@ -7,6 +7,7 @@ import image from '../public/images/10782951_19199360.jpg';
 import { useRouter } from 'next/router';
 import IsblogContext from '../context/IsblogContext';
 function Recommendations({author}) {
+    // console.log(Articles);
   
     return (
         <div className='flex justify-center items-center space-y-5 border-t-4 pt-2 px-2 flex-col'>
