@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { collection, getDocs, doc, setDoc, query,orderBy,onSnapshot } from "firebase/firestore";
 import { db, auth, provider } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup,getAuth } from "firebase/auth";
 import { async } from "@firebase/util";
 const IsblogContext = createContext();
 export const IsblogProvider = (props) => {
@@ -62,13 +62,20 @@ export const IsblogProvider = (props) => {
     }, []);
 
     const handleUserAuth = async () => {
-        const userData = await signInWithPopup(auth, provider)
-        setCurrentUser(userData.user);
-        addUserToFireBase(userData.user);
+       signInWithPopup(auth, provider);
     }
-    const handleSignOut = async () => {
-        setCurrentUser(null);
-    }
+    useEffect(() => {
+        const auth = getAuth();
+        return auth.onIdTokenChanged(async (user) => {
+            if (!user) {
+                setCurrentUser(null);
+                return;
+            }
+            const token = await user.getIdToken();
+            setCurrentUser(user);
+            addUserToFireBase(user);
+        })
+    }, []);
 
     async function addUserToFireBase(user) {
         await setDoc(doc(db, 'Users', user.email), {
@@ -93,7 +100,7 @@ export const IsblogProvider = (props) => {
     //         insertUser();
     //     }
     // }, [currentUser]);
-    // console.log(currentUser);
+    console.log(currentUser);
     return (
         <IsblogContext.Provider
             value={{
@@ -101,7 +108,6 @@ export const IsblogProvider = (props) => {
                 Articles,
                 handleUserAuth,
                 currentUser,
-                handleSignOut
             }}>
             {props.children}
         </IsblogContext.Provider>

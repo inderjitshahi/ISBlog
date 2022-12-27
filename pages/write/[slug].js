@@ -6,6 +6,7 @@ import IsblogContext from '../../context/IsblogContext';
 import { db } from '../../firebase';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";;
 function Write(props) {
     const router = useRouter();
     const currentUser = router.query.slug;
@@ -42,8 +43,9 @@ function Write(props) {
     return (
     <div className='min-h-screen'>
         <Header />
-        <div className='bg-purple-200 flex flex-col space-y-5 justify-center items-center px-5 py-5'>
-            <div className='font-bold text-2xl'>Write Something Amazing</div>
+        <div className='bg-purple-200 flex flex-col space-y-5 justify-center items-center px-5 py-5 relative'>
+            <Link href='/' className='flex items-center font-bold absolute left-3 top-3 text-2xl'><BsFillArrowLeftCircleFill/></Link>
+            <div className='font-bold text-lg sm:text-2xl'>Write Something Amazing</div>
             <div className='w-full border-gray-400 grid grid-cols-4 gap-x-5'>
                 <span className=' text-center col-span-1'>Title</span>
                 <input

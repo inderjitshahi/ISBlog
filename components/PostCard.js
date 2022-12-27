@@ -19,10 +19,10 @@ function PostCard({ Article }) {
     // console.log(Article,"PostCard");
     return (
         <Link href={`/post/${Article.id}`}>
-            <div className='flex rounded-md cursor-pointer  my-2 mx-2 border p-2  overflow-hidden shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out h-[20rem]'>
+            <div className='flex rounded-md cursor-pointer  my-2 mx-2 border p-2  overflow-hidden shadow-lg hover:shadow-none hover:scale-105 transition transform duration-100 ease-out h-[20rem] max-w-4xl'>
                 <div className='flex flex-col space-y-2 w-[70%]'>
-                    <div className='flex   space-x-2 items-center overflow-hidden max-h-[3rem]'>
-                        <div className='relative overflow-hidden w-10 h-10 items-center rounded-full'>
+                    <div className='flex   space-x-2 items-center'>
+                        <div className='relative overflow-hidden h-[2rem] w-[2rem] items-center rounded-full'>
                             <Image
                                 src={authorData?.imgUrl}
                                 alt="author image"

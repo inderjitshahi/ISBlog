@@ -3,10 +3,11 @@ import IsblogContext from '../context/IsblogContext';
 import { Router, useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import { auth } from '../firebase'; 
 
 function Header(props) {
     const router = useRouter();
-    const { handleUserAuth, currentUser, handleSignOut } = useContext(IsblogContext);
+    const { handleUserAuth, currentUser} = useContext(IsblogContext);
     console.log(currentUser,"header");
     return (
         <div className='flex drop-shadow-xl  gap-10 p-5 bg-fuchsia-600 border-b-2 border-purple-400'>
@@ -22,7 +23,7 @@ function Header(props) {
                         <Link href={`/write/${currentUser?.email}`} >
                             <button className='button'>Write</button>
                         </Link>
-                        <div className='relative overflow-hidden w-10 h-10 items-center rounded-full border-purple-400 border-2' onClick={handleSignOut}>
+                        <div className='relative overflow-hidden w-10 h-10 items-center rounded-full border-purple-400 border-2' onClick={() => { auth.signOut() }}>
                             <Image
                                 src={currentUser.photoURL}
                                 alt="author image"
