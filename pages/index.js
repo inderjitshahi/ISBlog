@@ -21,7 +21,7 @@ export default function Home() {
       <Header />
       <Banner />
       <div className=' flex-1 justify-center'>
-        <div className='flex flex-col  p-1 sm:p-5 gap-3 md:grid  md:grid-cols-2'>
+        <div className='flex flex-col  p-1 sm:p-5 gap-1 md:grid  md:grid-cols-2'>
           {/* <PostCard/> */}
           {
           Articles.map(Article=>(
