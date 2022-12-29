@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,18 +8,23 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
+import * as Emoji from "quill-emoji";
 function Write(props) {
     const router = useRouter();
     const currentUser = router.query.slug;
-    // if(!currentUser){
-    //     router.push('/');
-    // }
+    const { register, handleSubmit } = useForm();
+    const [c, setC] = useState();
+
     const addPostToFireBase = async (data) => {
+        console.log(data.body);
         if (currentUser) {
             // console.log(currentUser);
             await addDoc(collection(db, 'Articles'), {
                 ...data,
                 author: currentUser,
+                body: c,
                 postedOn: new Date(),
             }).then(res => router.push('/'))
                 .catch(err => console.log(err));
@@ -29,8 +34,53 @@ function Write(props) {
         }
     }
 
-
-    const { register, handleSubmit } = useForm();
+    const modules = {
+        toolbar: [
+            [{ header: '1' }, { header: '2' }, { font: [] }],
+            [{ size: [] }],
+             
+            ['bold', 'italic', 'underline', 'strike', 'blockquote',],
+            [{ 'color': ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff", "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff", "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff", "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2", "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466", 'custom-color'] }],  
+            [{ 'background': ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff", "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff", "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff", "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2", "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466", 'custom-color'] }],
+            ['emoji'], 
+            [
+                { list: 'ordered' },
+                { list: 'bullet' },
+                { indent: '-1' },
+                { indent: '+1' },
+            ],
+            ['link', 'image'],
+        ],
+        clipboard: {
+            // toggle to add extra line breaks when pasting HTML:
+            matchVisual: false,
+        },
+        "emoji-toolbar": true,
+        "emoji-textarea": true,
+        "emoji-shortname": true,
+    }
+    /*
+     * Quill editor formats
+     * See https://quilljs.com/docs/formats/
+     */
+    const formats = [
+        'header',
+        'font',
+        'size',
+        'bold',
+        'italic',
+        'underline',
+        'color',
+        'background',
+        'strike',
+        'blockquote',
+        'emoji',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+    ]
 
 
     const onSubmit = data => console.log(data);
@@ -46,7 +96,7 @@ function Write(props) {
                         <label htmlFor="floatingInput" className="text-gray-700">Title</label>
                     </div>
                     <div className="form-floating mb-3 ">
-                        <input type="text" {...register("brief", { required: true,validate: value => value.trim().length >= 1 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
+                        <input type="text" {...register("brief", { required: true, validate: value => value.trim().length >= 1 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
                         <label htmlFor="floatingInput" className="text-gray-700">Brief</label>
                     </div>
                     <div className="form-floating mb-3 ">
@@ -78,12 +128,16 @@ function Write(props) {
                     </div>
 
                     <div className="form-floating mb-3 ">
-                        <input type='number' max={1000} min={1} {...register("postLength", { required: true, validate: value => value>=1})} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
+                        <input type='number' max={1000} min={1} {...register("postLength", { required: true, validate: value => value >= 1 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
                         <label htmlFor="floatingInput" className="text-gray-700">Reading Time in Minutes</label>
                     </div>
 
                     <div className="form-floating mb-3 ">
-                        <textarea rows={10} {...register("postLength", { required: true, validate: value => value.trim().length >= 1 })} className="w-full py-1.5 px-3 text-gray-700  border border-solid border-gray-300 rounded focus:border-blue-600 focus:outline-none" placeholder='Your Thoughts' />
+                        {/* <QuillNoSSRWrapper
+                            name="content"
+                            value={value} onChange={onContentChange}
+                            rows={10} {...register("postLength", { required: true, validate: value => value.trim().length >= 1 })} className="w-full py-1.5 px-3 text-gray-700  border border-solid border-gray-300 rounded focus:border-blue-600 focus:outline-none" placeholder='Your Thoughts' /> */}
+                        <ReactQuill formats={formats} modules={modules} theme='snow' onChange={(e) => setC(e)}></ReactQuill>
                     </div>
 
                     <input data-mdb-ripple="true" data-mdb-ripple-color="light" type="submit" className="bg-blue-600 text-white border border-solid border-gray-300 mb-2 p-2 cursor-pointer focus:border-blue-600 w-full uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg hover:scale-95 transition duration-150 ease-in-out" />

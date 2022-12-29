@@ -14,7 +14,7 @@ function PostCard({ Article }) {
     useEffect(() => {
         const getAuthorData = async () => {
             setAuthorData((await getDoc(doc(db, 'Users', Article.data.author))).data());
-            console.log(authorData);
+            // console.log(authorData);
         }
         getAuthorData();
     }, [Article]);

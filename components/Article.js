@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
-
+const parse = require('html-react-parser');
 import { GrLinkedin } from 'react-icons/gr'
 import { FaFacebook } from 'react-icons/fa'
 import { BsGlobe } from 'react-icons/bs'
 import IsblogContext from '../context/IsblogContext';
 import { useRouter } from 'next/router';
 function Article({ author, article }) {
-    // console.log(author, "artcile");
     const router = useRouter();
-    // console.log(author,article);
     const DATE = new Date(article?.data?.postedOn?.toDate() || new Date()).toLocaleString('en-US', {
         day: 'numeric',
         month: 'short',
@@ -57,9 +55,9 @@ function Article({ author, article }) {
                         <h2 className='text-gray-400 text-sm'>{article?.data?.brief}</h2>
                     </div>
                     <div className='mt-5 p-2'>
-                        <p>
-                            {article?.data?.body}
-                        </p>
+                        <div>
+                            {parse(article?.data?.body)}
+                        </div>
                     </div>
                 </div>
             </div>
