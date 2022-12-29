@@ -55,8 +55,9 @@ function Article({ author, article }) {
                         <h2 className='text-gray-400 text-sm'>{article?.data?.brief}</h2>
                     </div>
                     <div className='mt-5 p-2'>
-                        <div>
-                            {parse(article?.data?.body)}
+                        <div className='text-md' dangerouslySetInnerHTML={{ __html: article?.data?.body }} >
+                            {/* {console.log(parse(article?.data?.body))} */}
+                            {/* {parse(article?.data?.body)} */}
                         </div>
                     </div>
                 </div>
