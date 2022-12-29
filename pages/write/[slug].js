@@ -5,15 +5,14 @@ import { db } from '../../firebase';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { useForm } from "react-hook-form";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import dynamic from 'next/dynamic';
 function Write(props) {
     const router = useRouter();
     const currentUser = router.query.slug;
     const { register, handleSubmit } = useForm();
     const [c, setC] = useState();
-    // const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
+    const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
     const addPostToFireBase = async (data) => {
         console.log(data.body);
         if (currentUser) {
