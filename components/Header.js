@@ -8,7 +8,7 @@ import {TbWriting} from 'react-icons/tb'
 function Header(props) {
     const router = useRouter();
     const { handleUserAuth, currentUser} = useContext(IsblogContext);
-    console.log(currentUser,"header");
+    // console.log(currentUser,"header");
     return (
         <div className='drop-shadow-xl  gap-10 p-5 bg-fuchsia-600 border-b-2 border-purple-400'>
             <div className='flex justify-between'>

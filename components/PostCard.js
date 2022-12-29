@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 function PostCard({ Article }) {
+    // console.log(Article);
     const [bookmarked, setBookmarked] = useState(false);
     const [authorData, setAuthorData] = useState({
         name: "anonymous",
@@ -12,10 +13,11 @@ function PostCard({ Article }) {
     });
     useEffect(() => {
         const getAuthorData = async () => {
-            setAuthorData((await getDoc(doc(db, 'Users', Article?.data?.author))).data())
+            setAuthorData((await getDoc(doc(db, 'Users', Article.data.author))).data());
+            console.log(authorData);
         }
         getAuthorData();
-    }, [Article])
+    }, [Article]);
     // console.log(Article,"PostCard");
     return (
         <Link href={`/post/${Article.id}`}>
@@ -32,21 +34,21 @@ function PostCard({ Article }) {
                         <p className='font-semibold'>{authorData?.name.substring(0, 37)}...</p>
                     </div>
                     <div className='flex flex-col space-y-3'>
-                        <h2 className='text-md  font-bold max-h-[3rem] overflow-hidden'>{Article.data.title.substring(0, 37)}...</h2>   
+                        <h2 className='text-md  font-bold max-h-[3rem] overflow-hidden'>{Article?.data.title.substring(0, 37)}...</h2>
                         <span className="text-sm text-gray-500">{new Date(Article?.data?.postedOn?.toDate()).toLocaleString('en-US', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric'
                         })} . {Article.data.postLength}min Read .  </span>
                         <div>
-                            <span className='bg-purple-300 px-2 py-1 rounded-full'>{Article.data.category}</span>
+                            <span className='bg-purple-300 px-2 py-1 rounded-full'>{Article?.data.category}</span>
                         </div>
-                    
+
                     </div>
                 </div>
                 <div className='relative w-[20%]   rounded-md overflow-hidden'>
                     <Image
-                        src={Article.data.bannerImage}
+                        src={Article?.data.bannerImage}
                         fill
                         alt='Article Image'
                     />

@@ -7,9 +7,6 @@ import PostCard from '../components/PostCard'
 import IsblogContext from '../context/IsblogContext';
 export default function Home() {
   const {Articles}=useContext(IsblogContext);
-  // console.log(Articles, "pages");
-  // console.log(Articles);
-  // console.log("called  here");
   return (
     <div className='flex flex-col justify-center min-h-screen'>
       <Head>

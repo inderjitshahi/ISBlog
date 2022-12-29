@@ -100,7 +100,7 @@ export const IsblogProvider = (props) => {
     //         insertUser();
     //     }
     // }, [currentUser]);
-    console.log(currentUser);
+    // console.log(currentUser);
     return (
         <IsblogContext.Provider
             value={{
