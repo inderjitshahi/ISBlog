@@ -14,15 +14,7 @@ function Write(props) {
     // if(!currentUser){
     //     router.push('/');
     // }
-    const [title, setTitle] = useState("");
-    const [brief, setBrief] = useState("");
-    const [category, setCategory] = useState("");
-    const [BannerImage, setBannerImage] = useState("");
-    const [readLength, setReadLength] = useState("");
-    const [body, setBody] = useState("");
-    // console.log(currentUser);
     const addPostToFireBase = async (data) => {
-        // console.log(data);
         if (currentUser) {
             // console.log(currentUser);
             await addDoc(collection(db, 'Articles'), {
@@ -50,11 +42,11 @@ function Write(props) {
                     <h2 className='my-5 text-center text-lg font-semibold'>Write Something Amazing</h2>
 
                     <div className="form-floating mb-3 ">
-                        <input type="text" {...register("title", { required: true, })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="Creative Writing" />
+                        <input type="text" {...register("title", { required: true, validate: value => value.trim().length >= 1 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="Creative Writing" />
                         <label htmlFor="floatingInput" className="text-gray-700">Title</label>
                     </div>
                     <div className="form-floating mb-3 ">
-                        <input type="text" {...register("brief", { required: true, })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
+                        <input type="text" {...register("brief", { required: true,validate: value => value.trim().length >= 1 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
                         <label htmlFor="floatingInput" className="text-gray-700">Brief</label>
                     </div>
                     <div className="form-floating mb-3 ">
@@ -86,12 +78,12 @@ function Write(props) {
                     </div>
 
                     <div className="form-floating mb-3 ">
-                        <input type='number' max={1000} min={1} {...register("postLength", { required: true, maxLength: 100 })} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
+                        <input type='number' max={1000} min={1} {...register("postLength", { required: true, validate: value => value>=1})} className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="floatingInput" placeholder="name@example.com" />
                         <label htmlFor="floatingInput" className="text-gray-700">Reading Time in Minutes</label>
                     </div>
 
                     <div className="form-floating mb-3 ">
-                        <textarea rows={10} {...register("postLength", { required: true, })} className="w-full py-1.5 px-3 text-gray-700  border border-solid border-gray-300 rounded focus:border-blue-600 focus:outline-none" placeholder='Your Thoughts' />
+                        <textarea rows={10} {...register("postLength", { required: true, validate: value => value.trim().length >= 1 })} className="w-full py-1.5 px-3 text-gray-700  border border-solid border-gray-300 rounded focus:border-blue-600 focus:outline-none" placeholder='Your Thoughts' />
                     </div>
 
                     <input data-mdb-ripple="true" data-mdb-ripple-color="light" type="submit" className="bg-blue-600 text-white border border-solid border-gray-300 mb-2 p-2 cursor-pointer focus:border-blue-600 w-full uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg hover:scale-95 transition duration-150 ease-in-out" />
