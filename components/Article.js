@@ -43,7 +43,7 @@ function Article({ author, article }) {
                 </div>
                 {/* Content */}
                 <div>
-                    <div className='relative h-[80vh] :w-[100%] rounded-lg overflow-hidden'>
+                    <div className='relative h-[40vh] lg:h-[60vh] :w-[100%] rounded-lg overflow-hidden'>
                         <Image
                             src={article?.data?.bannerImage}
                             fill
