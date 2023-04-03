@@ -18,6 +18,9 @@ export default function Home() {
       <Header />
       <Banner />
       <div className=' flex-1 justify-center'>
+          <div className='flex justify-center text-red-500 items-center text-4xl h-32'>
+            Under Repair, Will Be Back Soon!!!
+          </div>
         <div className='flex flex-col  p-1 sm:p-5 gap-1 md:grid  md:grid-cols-2'>
           {/* <PostCard/> */}
           {
